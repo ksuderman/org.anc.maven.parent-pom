@@ -40,7 +40,7 @@
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-webdav</artifactId>
-				<version>1.0-beta-2</version>
+				<!--  <version>1.0-beta-2</version> -->
 			</extension>
 		</extensions>
 		<plugins>
@@ -155,10 +155,6 @@
 			<name>ANC Snapshot Repository</name>
 			<url>dav:http://www.anc.org/maven/snapshot</url>
 		</snapshotRepository>
-		<site>
-			<id>anc-scp</id>
-			<url>scp://suderman@anc.org:/var/www/anc/projects/anc-common</url>
-		</site>
 	</distributionManagement>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
