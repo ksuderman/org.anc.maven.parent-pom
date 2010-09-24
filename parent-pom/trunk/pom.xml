@@ -89,6 +89,11 @@
 								<goals>
 									<goal>deploy-file</goal>
 								</goals>
+								<configuration>
+									<repositoryId>anc-dev-${release.type}"</repositoryId>
+									<url>dav:http://www.anc.org/maven/${release.type}</url>
+									<file>${project.build.directory}/${jar.file}</file>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -158,6 +163,10 @@
 	</distributionManagement>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<base.name>${project.groupId}.${project.artifactId}</base.name>
+		<versioned.name>${base.name}-${project.version}</versioned.name>
+		<jar.name>${versioned.name}.${project.packaging}</jar.name>
+		<release.type>snapshot</release.type>
 	</properties>
 
 </project>
