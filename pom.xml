@@ -36,6 +36,7 @@
 		</developer>
 	</developers>
 	<build>
+		<finalName>${versioned.name}</finalName>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -90,9 +91,10 @@
 									<goal>deploy-file</goal>
 								</goals>
 								<configuration>
-									<repositoryId>anc-dev-${release.type}"</repositoryId>
+									<repositoryId>anc-dev-${release.type}</repositoryId>
 									<url>dav:http://www.anc.org/maven/${release.type}</url>
-									<file>${project.build.directory}/${jar.file}</file>
+									<file>${project.build.directory}/${jar.name}</file>
+									<pomFile>${basedir}/pom.xml</pomFile>
 								</configuration>
 							</execution>
 						</executions>
