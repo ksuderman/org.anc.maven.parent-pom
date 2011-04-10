@@ -53,6 +53,9 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<!--  Do not include the maven-source-plugin and
+			 !    maven-javadoc-plugin in the default build. Source and
+			 !    JavaDoc jars must be generated explicitly now.
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -79,7 +82,9 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--  
+			-->
+			
+			<!-- Was having problems with the 2.7.2 version of the plugin.  
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
