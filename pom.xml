@@ -220,7 +220,7 @@
 		<versioned.name>${base.name}-${project.version}</versioned.name>
 		<jar.name>${versioned.name}.${project.packaging}</jar.name>
 		<release.type>release</release.type>
-		<last.stable.release>1.0.1</last.stable.release>
+		<last.stable.version>1.0.1</last.stable.version>
 	</properties>
 
 </project>
