@@ -1,0 +1,226 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.anc.maven</groupId>
+	<artifactId>parent-pom</artifactId>
+	<version>1.0.4</version>
+	<packaging>pom</packaging>
+	<name>parent-pom</name>
+	<description>Parent POM for ANC projects.</description>
+	<issueManagement>
+		<system>Trac</system>
+		<url>http://www.anc.org/wiki</url>
+	</issueManagement>
+	<organization>
+		<name>American National Corpus</name>
+		<url>http://www.anc.org</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+	<ciManagement>
+	</ciManagement>
+	<developers>
+		<developer>
+			<id>ksuderman</id>
+			<name>Keith Suderman</name>
+			<email>suderman@anc.org</email>
+			<organization>American National Corpus</organization>
+			<organizationUrl>http://www.anc.org/</organizationUrl>
+			<roles>
+				<role>Project Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<build>
+		<finalName>${versioned.name}</finalName>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<!--  <version>1.0-beta-2</version> -->
+			</extension>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<!--  <version>1.0-beta-2</version> -->
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!--  Do not include the maven-source-plugin and
+			 !    maven-javadoc-plugin in the default build. Source and
+			 !    JavaDoc jars must be generated explicitly now.
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+			
+			<!-- Was having problems with the 2.7.2 version of the plugin.  
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			-->
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.anc.maven.plugins</groupId>
+						<artifactId>anc-maven-plugin</artifactId>
+						<version>1.0.2</version>
+						<!--  
+						<configuration>
+							<directory>${project.build.directory}</directory>
+							<filename>VERSION</filename>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>version</goal>
+								</goals>
+							</execution>
+						</executions>
+						-->
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<version>2.5</version>
+						<executions>
+							<execution>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<repositoryId>anc-dev-${release.type}</repositoryId>
+									<url>dav:http://www.anc.org/maven/${release.type}</url>
+									<file>${project.build.directory}/${jar.name}</file>
+									<pomFile>${basedir}/pom.xml</pomFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>deploy-pom</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<version>2.5</version>
+						<executions>
+							<execution>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<repositoryId>anc-dev-release</repositoryId>
+									<url>dav:http://www.anc.org/maven/release</url>
+									<file>pom.xml</file>
+									<pomFile>${basedir}/pom.xml</pomFile>
+									<!--  
+									<packaging>pom</packaging>
+									-->
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+		      <plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>cobertura-maven-plugin</artifactId>
+		        <version>2.5</version>
+		      </plugin>
+      		</plugins>
+	</reporting>
+	<distributionManagement>
+		<!-- use the following if you're not using a snapshot version. -->
+		<repository>
+			<id>anc-dev-release</id>
+			<name>ANC Replease Repository</name>
+			<url>dav:http://www.anc.org/maven/release</url>
+		</repository>
+		<!-- use the following if you ARE using a snapshot version. -->
+		<snapshotRepository>
+			<id>anc-dev-snapshot</id>
+			<name>ANC Snapshot Repository</name>
+			<url>dav:http://www.anc.org/maven/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<properties>
+		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<base.name>${project.groupId}.${project.artifactId}</base.name>
+		<versioned.name>${base.name}-${project.version}</versioned.name>
+		<jar.name>${versioned.name}.${project.packaging}</jar.name>
+		<release.type>release</release.type>
+		<last.stable.release>1.0.1</last.stable.release>
+	</properties>
+
+</project>
