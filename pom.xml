@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.anc.maven</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.5</version>
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
@@ -181,7 +181,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>4.9</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -219,8 +219,8 @@
 		<base.name>${project.groupId}.${project.artifactId}</base.name>
 		<versioned.name>${base.name}-${project.version}</versioned.name>
 		<jar.name>${versioned.name}.${project.packaging}</jar.name>
-		<release.type>snapshot</release.type>
-		<last.stable.version>1.0.1</last.stable.version>
+		<release.type>release</release.type>
+		<last.stable.version>1.0.4</last.stable.version>
 	</properties>
 
 </project>
