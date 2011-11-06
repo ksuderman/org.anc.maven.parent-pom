@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.anc.maven</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
@@ -96,6 +96,11 @@
 				<version>2.7</version>
 			</plugin>
 			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -207,9 +212,9 @@
 		      <plugin>
 		        <groupId>org.codehaus.mojo</groupId>
 		        <artifactId>cobertura-maven-plugin</artifactId>
-		        <version>2.5</version>
+		        <version>2.5.1</version>
 		      </plugin>
-      		</plugins>
+		</plugins>
 	</reporting>
 	<distributionManagement>
 		<!-- use the following if you're not using a snapshot version. -->
@@ -231,8 +236,8 @@
 		<base.name>${project.groupId}.${project.artifactId}</base.name>
 		<versioned.name>${base.name}-${project.version}</versioned.name>
 		<jar.name>${versioned.name}.${project.packaging}</jar.name>
-		<release.type>release</release.type>
-		<last.stable.version>1.0.4</last.stable.version>
+		<release.type>snapshot</release.type>
+		<last.stable.version>1.0.5</last.stable.version>
 	</properties>
 
 </project>
