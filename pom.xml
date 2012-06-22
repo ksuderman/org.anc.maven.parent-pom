@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.anc.maven</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>1.0.6</version>
+	<version>2.0.1</version>
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
@@ -17,7 +17,7 @@
 	</organization>
 	<licenses>
 		<license>
-			<name>Apache 2.0</name>
+			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
 		</license>
 	</licenses>
@@ -58,44 +58,6 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-			<!--  Do not include the maven-source-plugin and
-			 !    maven-javadoc-plugin in the default build. Source and
-			 !    JavaDoc jars must be generated explicitly now.
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			-->
-			
-			<!-- Was having problems with the 2.7.2 version of the plugin.  
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.7</version>
-			</plugin>
-			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -113,92 +75,18 @@
 					</filesets>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.anc.maven</groupId>
+				<artifactId>anc-maven-plugin</artifactId>
+				<version>1.0.3</version>
+			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.anc.maven.plugins</groupId>
-						<artifactId>anc-maven-plugin</artifactId>
-						<version>1.0.3</version>
-						<!--  
-						<configuration>
-							<directory>${project.build.directory}</directory>
-							<filename>VERSION</filename>
-						</configuration>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>version</goal>
-								</goals>
-							</execution>
-						</executions>
-						-->
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-deploy-plugin</artifactId>
-						<version>2.5</version>
-						<executions>
-							<execution>
-								<phase>deploy</phase>
-								<goals>
-									<goal>deploy-file</goal>
-								</goals>
-								<configuration>
-									<repositoryId>anc-dev-${release.type}</repositoryId>
-									<url>dav:http://www.anc.org/maven/${release.type}</url>
-									<file>${project.build.directory}/${jar.name}</file>
-									<pomFile>${basedir}/pom.xml</pomFile>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>deploy-pom</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-deploy-plugin</artifactId>
-						<version>2.5</version>
-						<executions>
-							<execution>
-								<phase>deploy</phase>
-								<goals>
-									<goal>deploy-file</goal>
-								</goals>
-								<configuration>
-									<repositoryId>anc-dev-release</repositoryId>
-									<url>dav:http://www.anc.org/maven/release</url>
-									<file>pom.xml</file>
-									<pomFile>${basedir}/pom.xml</pomFile>
-									<!--  
-									<packaging>pom</packaging>
-									-->
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -216,18 +104,36 @@
 		      </plugin>
 		</plugins>
 	</reporting>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.6.6</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.0.6</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<distributionManagement>
 		<!-- use the following if you're not using a snapshot version. -->
 		<repository>
-			<id>anc-dev-release</id>
-			<name>ANC Replease Repository</name>
-			<url>dav:http://www.anc.org/maven/release</url>
+			<id>nexus-releases</id>
+			<name>ANC Nexus Replease</name>
+			<url>http://www.anc.org:8080/nexus/content/repositories/releases/</url>
 		</repository>
 		<!-- use the following if you ARE using a snapshot version. -->
 		<snapshotRepository>
-			<id>anc-dev-snapshot</id>
-			<name>ANC Snapshot Repository</name>
-			<url>dav:http://www.anc.org/maven/snapshot</url>
+			<id>nexus-snapshots</id>
+			<name>ANC Nexus Snapshot</name>
+			<url>http://www.anc.org:8080/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
@@ -236,8 +142,8 @@
 		<base.name>${project.groupId}.${project.artifactId}</base.name>
 		<versioned.name>${base.name}-${project.version}</versioned.name>
 		<jar.name>${versioned.name}.${project.packaging}</jar.name>
-		<release.type>snapshot</release.type>
-		<last.stable.version>1.0.5</last.stable.version>
+		<repo>snapshots</repo>
+		<last.stable.version>1.0.6</last.stable.version>
 	</properties>
 
 </project>
