@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.anc.maven</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>2.5.0</version>
+	<version>2.5.1</version>
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
@@ -94,29 +94,7 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>0.7-groovy-2.0</version>
-            <scope>test</scope>
-        </dependency>
 	</dependencies>
-    <!--
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
-			</plugin>
-		      <plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>cobertura-maven-plugin</artifactId>
-		        <version>2.5.1</version>
-		      </plugin>
-		</plugins>
-	</reporting>
-	-->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
