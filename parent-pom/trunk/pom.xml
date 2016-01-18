@@ -3,10 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.anc.maven</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>2.5.2</version>
+	<version>2.5.3</version>
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
+	<url>http://www.anc.org</url>
 	<issueManagement>
 		<system>Trac</system>
 		<url>http://www.anc.org/wiki</url>
@@ -18,11 +19,14 @@
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	<ciManagement>
-	</ciManagement>
+	<scm>
+		<url>http://www.anc.org/dev/parent-pom</url>
+		<connection>scm:svn:http://www.anc.org/dev/parent-pom/trunk</connection>
+		<developerConnection>scm:svn:https://www.anc.org/dev/parent-pom/trunk</developerConnection>
+	</scm>
 	<developers>
 		<developer>
 			<id>ksuderman</id>
@@ -115,14 +119,12 @@
 	</dependencyManagement>
 	<distributionManagement>
 		<repository>
-			<id>nexus-releases</id>
-			<name>ANC Nexus Replease</name>
-			<url>http://www.anc.org:8080/nexus/content/repositories/releases/</url>
+			<id>sonatype-staging</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 		<snapshotRepository>
-			<id>nexus-snapshots</id>
-			<name>ANC Nexus Snapshot</name>
-			<url>http://www.anc.org:8080/nexus/content/repositories/snapshots/</url>
+			<id>sonatype-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
@@ -134,5 +136,32 @@
 		<repo>snapshots</repo>
 		<last.stable.version>2.2.2</last.stable.version>
 	</properties>
-
+	<profiles>
+		<profile>
+			<id>sign-pgp</id>
+			<activation>
+				<property>
+					<name>gpg.passphrase</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
