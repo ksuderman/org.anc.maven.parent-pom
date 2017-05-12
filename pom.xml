@@ -3,14 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.anc.maven</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>2.5.3</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
 	<url>http://www.anc.org</url>
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<issueManagement>
-		<system>Trac</system>
-		<url>http://www.anc.org/wiki</url>
+		<system>GitHub</system>
+		<url>https://github.com/oanc/org.anc.maven.parent-pom/issues</url>
 	</issueManagement>
 	<organization>
 		<name>American National Corpus</name>
@@ -23,9 +27,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://www.anc.org/dev/parent-pom</url>
-		<connection>scm:svn:http://www.anc.org/dev/parent-pom/trunk</connection>
-		<developerConnection>scm:svn:https://www.anc.org/dev/parent-pom/trunk</developerConnection>
+		<url>https://github.com/oanc/org.anc.maven.parent-pom</url>
+		<connection>scm:git:https://github.com/oanc/org.anc.maven.parent-pom.git</connection>
+		<developerConnection>scm:gti:https://github.com/oanc/org.anc.maven.parent-pom.git</developerConnection>
 	</scm>
 	<developers>
 		<developer>
@@ -39,84 +43,84 @@
 			</roles>
 		</developer>
 	</developers>
-	<build>
-		<finalName>${versioned.name}</finalName>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav</artifactId>
-				<!--  <version>1.0-beta-2</version> -->
-			</extension>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ssh</artifactId>
-				<!--  <version>1.0-beta-2</version> -->
-			</extension>
-		</extensions>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.4</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>$jarplug.work</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.anc.maven.plugins</groupId>
-				<artifactId>anc-maven-plugin</artifactId>
-				<version>1.0.6</version>
-			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-		</plugins>
-	</build>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.7.5</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.0.11</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<!--
+<build>
+    <finalName>${versioned.name}</finalName>
+    <extensions>
+        <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-webdav</artifactId>
+        </extension>
+        <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-ssh</artifactId>
+        </extension>
+    </extensions>
+    <plugins>
+        <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <source>${java.version}</source>
+                <target>${java.version}</target>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.4</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.4.1</version>
+            <configuration>
+                <filesets>
+                    <fileset>
+                        <directory>$jarplug.work</directory>
+                    </fileset>
+                </filesets>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.anc.maven.plugins</groupId>
+            <artifactId>anc-maven-plugin</artifactId>
+            <version>1.0.6</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.0</version>
+        </plugin>
+    </plugins>
+</build>
+<dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.11</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+-->
 	<distributionManagement>
 		<repository>
 			<id>sonatype-staging</id>
@@ -127,15 +131,6 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	<properties>
-		<java.version>1.7</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<base.name>${project.groupId}.${project.artifactId}</base.name>
-		<versioned.name>${base.name}-${project.version}</versioned.name>
-		<jar.name>${versioned.name}.${project.packaging}</jar.name>
-		<repo>snapshots</repo>
-		<last.stable.version>2.2.2</last.stable.version>
-	</properties>
 	<profiles>
 		<profile>
 			<id>sign-pgp</id>
