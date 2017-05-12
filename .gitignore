@@ -1,0 +1,8 @@
+target
+.idea
+*.ipr
+*.iws
+*.iml
+.project
+.settings
+.svn
