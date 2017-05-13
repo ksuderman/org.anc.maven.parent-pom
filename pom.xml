@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	<name>parent-pom</name>
 	<description>Parent POM for ANC projects.</description>
-	<url>http://www.anc.org</url>
+	<url>https://github.com/oanc/org.anc.maven.parent-pom</url>
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
